@@ -1,6 +1,7 @@
 package com.expert.healthinfo.core.di
 
 import androidx.room.Room
+import com.expert.healthinfo.core.BuildConfig
 import com.expert.healthinfo.core.data.HealthRepository
 import com.expert.healthinfo.core.data.source.local.LocalDataSource
 import com.expert.healthinfo.core.data.source.local.room.HeadlinesDatabase
@@ -31,8 +32,15 @@ val databaseModule = module {
 
 val networkModule = module {
     single {
+        val loggingInterceptor = HttpLoggingInterceptor().apply {
+            level = if (BuildConfig.DEBUG) {
+                HttpLoggingInterceptor.Level.BODY
+            } else {
+                HttpLoggingInterceptor.Level.NONE
+            }
+        }
         OkHttpClient.Builder()
-            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .addInterceptor(loggingInterceptor)
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
             .build()

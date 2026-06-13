@@ -1,3 +1,12 @@
+import java.util.Properties
+
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.inputStream().use { localProperties.load(it) }
+}
+val apiKey: String = localProperties.getProperty("API_KEY", "")
+
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.androidLibrary)
@@ -8,7 +17,7 @@ plugins {
 
 android {
     namespace = "com.expert.healthinfo.core"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 24
@@ -20,19 +29,19 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            buildConfigField("String", "API_KEY", "\"2c22331536494c1cb9833674128f9bb3\"")
+            buildConfigField("String", "API_KEY", "\"$apiKey\"")
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
         debug {
-            buildConfigField("String", "API_KEY", "\"2c22331536494c1cb9833674128f9bb3\"")
+            buildConfigField("String", "API_KEY", "\"$apiKey\"")
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         viewBinding = true

@@ -1,4 +1,12 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.util.Properties
+
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.inputStream().use { localProperties.load(it) }
+}
+val apiKey: String = localProperties.getProperty("API_KEY", "")
 
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
@@ -24,12 +32,12 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
-            buildConfigField("String", "API_KEY", "\"2c22331536494c1cb9833674128f9bb3\"")
+            isMinifyEnabled = true
+            buildConfigField("String", "API_KEY", "\"$apiKey\"")
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
         debug {
-            buildConfigField("String", "API_KEY", "\"2c22331536494c1cb9833674128f9bb3\"")
+            buildConfigField("String", "API_KEY", "\"$apiKey\"")
         }
     }
     compileOptions {
@@ -77,5 +85,5 @@ dependencies {
 
     implementation(libs.koin.android)
 
-    implementation ("com.google.android.play:feature-delivery-ktx:2.1.0")
+    implementation("com.google.android.play:feature-delivery-ktx:2.1.0")
 }
