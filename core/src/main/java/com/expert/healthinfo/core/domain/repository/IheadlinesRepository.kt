@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface IheadlinesRepository {
 
-    fun getAllHeadlines(): Flow<com.expert.healthinfo.core.data.Result<List<Headlines>>>
+    fun getAllHeadlines(): Flow<Result<List<Headlines>>>
 
     fun getFavoriteHeadlines(): Flow<List<Headlines>>
 
@@ -14,8 +14,5 @@ interface IheadlinesRepository {
 
     suspend fun insertFavoriteHeadlines(headlines: Headlines)
 
-    suspend fun deleteFavoriteHeadlines(headlines: Headlines) : Int
-
-//    fun setFavoriteHeadlines(headlines: Headlines, state: Boolean)
-
+    suspend fun deleteFavoriteHeadlines(headlines: Headlines): Int
 }

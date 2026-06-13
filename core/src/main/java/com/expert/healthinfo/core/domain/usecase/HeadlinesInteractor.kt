@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 class HeadlinesInteractor(private val headlinesRepository: IheadlinesRepository) : HeadlinesUseCase {
 
-    override fun getAllHeadlines(): Flow<com.expert.healthinfo.core.data.Result<List<Headlines>>> {
+    override fun getAllHeadlines(): Flow<Result<List<Headlines>>> {
         return headlinesRepository.getAllHeadlines()
     }
 
@@ -26,8 +26,4 @@ class HeadlinesInteractor(private val headlinesRepository: IheadlinesRepository)
     override suspend fun deleteFavoriteHeadlines(headlines: Headlines): Int {
         return headlinesRepository.deleteFavoriteHeadlines(headlines)
     }
-
-//    override fun setFavoriteHeadlines(headlines: Headlines, state: Boolean) {
-//        return headlinesRepository.setFavoriteHeadlines(headlines, state)
-//    }
 }

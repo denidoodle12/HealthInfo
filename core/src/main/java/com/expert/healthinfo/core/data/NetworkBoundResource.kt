@@ -1,26 +1,25 @@
 package com.expert.healthinfo.core.data
 
 import com.expert.healthinfo.core.data.source.remote.network.ApiResponse
-import com.expert.healthinfo.core.utils.AppExecutors
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
-abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecutors: AppExecutors) {
+abstract class NetworkBoundResource<ResultType, RequestType> {
 
-    private val result: Flow<com.expert.healthinfo.core.data.Result<ResultType>> = flow {
-        emit(com.expert.healthinfo.core.data.Result.Loading())
+    private val result: Flow<Result<ResultType>> = flow {
+        emit(Result.Loading())
         when (val apiResponse = createCall().first()) {
             is ApiResponse.Success -> {
                 emitAll(loadFromNetwork(apiResponse.data).map {
-                    com.expert.healthinfo.core.data.Result.Success(it)
+                    Result.Success(it)
                 })
             }
 
             is ApiResponse.Error -> {
-                emit(com.expert.healthinfo.core.data.Result.Error<ResultType>(apiResponse.errorMessage))
+                emit(Result.Error<ResultType>(apiResponse.errorMessage))
             }
 
             else -> {}
@@ -31,5 +30,5 @@ abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecut
 
     protected abstract suspend fun createCall(): Flow<ApiResponse<RequestType>>
 
-    fun asFlow(): Flow<com.expert.healthinfo.core.data.Result<ResultType>> = result
+    fun asFlow(): Flow<Result<ResultType>> = result
 }

@@ -8,7 +8,6 @@ import com.expert.healthinfo.core.data.source.local.room.HeadlinesDatabase
 import com.expert.healthinfo.core.data.source.remote.RemoteDataSource
 import com.expert.healthinfo.core.data.source.remote.network.ApiService
 import com.expert.healthinfo.core.domain.repository.IheadlinesRepository
-import com.expert.healthinfo.core.utils.AppExecutors
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -58,18 +57,14 @@ val networkModule = module {
 
 val repoModule = module {
     single {
-        com.expert.healthinfo.core.data.source.local.LocalDataSource(get())
+        LocalDataSource(get())
     }
 
     single {
         RemoteDataSource(get())
     }
 
-    factory {
-        AppExecutors()
-    }
-
-    single<IheadlinesRepository>{
-        com.expert.healthinfo.core.data.HealthRepository(get(), get(), get())
+    single<IheadlinesRepository> {
+        HealthRepository(get(), get())
     }
 }

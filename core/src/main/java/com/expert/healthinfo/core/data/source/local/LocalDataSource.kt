@@ -17,10 +17,4 @@ class LocalDataSource(private val headlinesDao: HeadlinesDao) {
     suspend fun insertHeadlinesFav(headlinesList: HeadlinesEntity) = headlinesDao.insertHeadlines(headlinesList)
 
     suspend fun deleteHeadlinesFav(headlinesList: HeadlinesEntity) = headlinesDao.deleteFavoriteHeadlines(headlinesList)
-
-//    fun setHeadlinesFavorite(headlines: HeadlinesEntity, newState: Boolean) {
-//        headlines.isFavorite = newState
-//        headlinesDao.updateFavoriteHeadlines(headlines)
-//    }
-
 }

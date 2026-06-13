@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.flowOn
 
 class RemoteDataSource(private val apiService: ApiService) {
 
-    suspend fun getAllTourism(): Flow<ApiResponse<List<HeadlinesResponse>>> {
+    suspend fun getAllHeadlines(): Flow<ApiResponse<List<HeadlinesResponse>>> {
         return flow {
             try {
                 val response = apiService.getListHeadlines()
