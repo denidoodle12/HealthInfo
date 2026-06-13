@@ -12,12 +12,12 @@ object DataMapper {
         val data = ArrayList<Headlines>()
         input.map {
             val headlines = Headlines(
-                it.source?.id,
-                it.author,
-                it.urlToImage,
-                it.description,
-                it.title,
-                false
+                idHeadlines = it.url ?: UUID.randomUUID().toString(),
+                author = it.author,
+                urlToImage = it.urlToImage,
+                description = it.description,
+                title = it.title,
+                isFavorite = false
             )
             data.add(headlines)
         }
@@ -28,7 +28,7 @@ object DataMapper {
         val headlinesList = ArrayList<HeadlinesEntity>()
         input.map {
             val headlines = HeadlinesEntity(
-                idHeadlines = it.source?.id ?: UUID.randomUUID().toString(),
+                idHeadlines = it.url ?: UUID.randomUUID().toString(),
                 author = it.author,
                 urlToImage = it.urlToImage,
                 description = it.description,

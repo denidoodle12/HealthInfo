@@ -67,7 +67,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupAction() {
         binding.imgFavorite.setOnClickListener {
-            toFavorite()
             installFavoriteModule()
         }
     }

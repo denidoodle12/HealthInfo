@@ -30,12 +30,11 @@ class DetailActivity : AppCompatActivity() {
         detailHeadlines = getParcelableExtra(intent, EXTRA_DETAIL_DATA, Headlines::class.java)
         showDetailHeadlines(detailHeadlines)
 
-        detailHeadlines?.let { headline ->
-            headline.idHeadlines?.let { id ->
-                detailViewModel.isHeadlineFavorite(id).observe(this) { isFav ->
-                    isFavorite = isFav
-                    setFavoriteState(isFavorite)
-                }
+        val headlineId = detailHeadlines?.idHeadlines
+        if (headlineId != null) {
+            detailViewModel.isHeadlineFavorite(headlineId).observe(this) { isFav ->
+                isFavorite = isFav
+                setFavoriteState(isFavorite)
             }
         }
 
