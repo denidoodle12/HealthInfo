@@ -3,6 +3,7 @@ package com.expert.healthinfo.favorite
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.expert.healthinfo.core.ui.HealthAdapter
 import com.expert.healthinfo.detail.DetailActivity
@@ -42,8 +43,25 @@ class FavoriteActivity : AppCompatActivity() {
             adapter = healthAdapter
         }
 
+        // Tampilkan loading saat awal
+        binding.progressBar.visibility = View.VISIBLE
+        binding.viewEmpty.visibility = View.GONE
+        binding.rvFavorite.visibility = View.GONE
+
         favoriteViewModel.headlines.observe(this) { favoriteList ->
-            healthAdapter.submitList(favoriteList)
+            // Sembunyikan loading setelah data tiba (Room sangat cepat)
+            binding.progressBar.visibility = View.GONE
+
+            if (favoriteList.isNullOrEmpty()) {
+                // Tampilkan empty state
+                binding.rvFavorite.visibility = View.GONE
+                binding.viewEmpty.visibility = View.VISIBLE
+            } else {
+                // Tampilkan daftar favorit
+                binding.viewEmpty.visibility = View.GONE
+                binding.rvFavorite.visibility = View.VISIBLE
+                healthAdapter.submitList(favoriteList)
+            }
         }
     }
 }

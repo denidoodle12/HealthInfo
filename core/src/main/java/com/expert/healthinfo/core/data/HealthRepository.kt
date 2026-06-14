@@ -8,6 +8,7 @@ import com.expert.healthinfo.core.domain.model.Headlines
 import com.expert.healthinfo.core.domain.repository.IheadlinesRepository
 import com.expert.healthinfo.core.utils.DataMapper
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 
 class HealthRepository(
@@ -15,8 +16,9 @@ class HealthRepository(
     private val localDataSource: LocalDataSource
 ) : IheadlinesRepository {
 
-    override fun getAllHeadlines(): Flow<Result<List<Headlines>>> =
-        object : NetworkBoundResource<List<Headlines>, List<HeadlinesResponse>>() {
+    override fun getAllHeadlines(): Flow<Result<List<Headlines>>> {
+        // Flow dari API (selalu isFavorite = false)
+        val apiFlow = object : NetworkBoundResource<List<Headlines>, List<HeadlinesResponse>>() {
             override fun loadFromNetwork(data: List<HeadlinesResponse>): Flow<List<Headlines>> {
                 return DataMapper.mapResponsesToDomain(data)
             }
@@ -25,6 +27,23 @@ class HealthRepository(
                 return remoteDataSource.getAllHeadlines()
             }
         }.asFlow()
+
+        // Combine API flow dengan favorites dari Room secara reaktif.
+        // Setiap kali user add/remove favorite, Room emit data baru →
+        // combine() re-emit → isFavorite di daftar utama otomatis terupdate.
+        return combine(apiFlow, localDataSource.getFavoriteHeadlines()) { result, favorites ->
+            when (result) {
+                is Result.Success -> {
+                    val favoriteIds = favorites.map { it.idHeadlines }.toSet()
+                    val updatedList = result.data?.map { headline ->
+                        headline.copy(isFavorite = headline.idHeadlines in favoriteIds)
+                    } ?: emptyList()
+                    Result.Success(updatedList)
+                }
+                else -> result
+            }
+        }
+    }
 
     override fun getFavoriteHeadlines(): Flow<List<Headlines>> {
         return localDataSource.getFavoriteHeadlines().map {

@@ -16,4 +16,10 @@
     <string name="detail_title">Title</string>
     <string name="detail_description">this is description</string>
     <string name="seeMore">See More</string>
+    <!-- Error State -->
+    <string name="error_failed_load">Failed to load data.\nPlease check your internet connection.</string>
+    <string name="retry">Try Again</string>
+    <!-- Empty State -->
+    <string name="empty_favorite_title">No Favorite Articles Yet</string>
+    <string name="empty_favorite_subtitle">Tap the bookmark icon on an article detail to save it here</string>
 </resources>

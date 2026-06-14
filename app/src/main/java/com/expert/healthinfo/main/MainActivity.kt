@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
 
     private val mainViewModel: MainViewModel by viewModel()
 
-    private var _binding: ActivityMainBinding?= null
+    private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,8 +31,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showData() {
-
         val healthAdapter = HealthAdapter()
+
+        with(binding.rvHealth) {
+            layoutManager = LinearLayoutManager(context)
+            setHasFixedSize(true)
+            adapter = healthAdapter
+        }
+
         healthAdapter.onItemClick = { selectedData ->
             val intent = Intent(this, DetailActivity::class.java)
             intent.putExtra(DetailActivity.EXTRA_DETAIL_DATA, selectedData)
@@ -42,26 +48,28 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.headlines.observe(this) { result ->
             if (result != null) {
                 when (result) {
-                    is com.expert.healthinfo.core.data.Result.Loading -> binding.progressBar.visibility = View.VISIBLE
-                    is com.expert.healthinfo.core.data.Result.Success -> {
+                    is Result.Loading -> {
+                        binding.progressBar.visibility = View.VISIBLE
+                        binding.rvHealth.visibility = View.GONE
+                        binding.viewError.visibility = View.GONE
+                    }
+                    is Result.Success -> {
                         binding.progressBar.visibility = View.GONE
+                        binding.viewError.visibility = View.GONE
+                        binding.rvHealth.visibility = View.VISIBLE
                         healthAdapter.submitList(result.data)
                     }
-                    is com.expert.healthinfo.core.data.Result.Error -> {
-                        Toast.makeText(
-                            this,
-                            "unable to get data ${result.message}",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                    is Result.Error -> {
+                        binding.progressBar.visibility = View.GONE
+                        binding.rvHealth.visibility = View.GONE
+                        binding.viewError.visibility = View.VISIBLE
                     }
                 }
             }
         }
 
-        with(binding.rvHealth) {
-            layoutManager = LinearLayoutManager(context)
-            setHasFixedSize(true)
-            adapter = healthAdapter
+        binding.btnRetry.setOnClickListener {
+            mainViewModel.refresh()
         }
     }
 
@@ -71,11 +79,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-    private fun installFavoriteModule(){
+    private fun installFavoriteModule() {
         val splitInstallManager = SplitInstallManagerFactory.create(this)
         val moduleFavorite = "favorite"
-        if(splitInstallManager.installedModules.contains(moduleFavorite)) {
+        if (splitInstallManager.installedModules.contains(moduleFavorite)) {
             toFavorite()
             Toast.makeText(this, "Open module", Toast.LENGTH_SHORT).show()
         } else {
@@ -97,9 +104,8 @@ class MainActivity : AppCompatActivity() {
     private fun toFavorite() {
         try {
             startActivity(Intent(this, Class.forName("com.expert.healthinfo.favorite.FavoriteActivity")))
-        } catch (e: Exception){
+        } catch (e: Exception) {
             Toast.makeText(this, "Module not found", Toast.LENGTH_SHORT).show()
         }
     }
-
 }

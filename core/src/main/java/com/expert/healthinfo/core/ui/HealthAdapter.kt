@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.expert.healthinfo.core.R
 import com.expert.healthinfo.core.databinding.ItemsArticleBinding
 import com.expert.healthinfo.core.domain.model.Headlines
 
@@ -32,6 +33,15 @@ class HealthAdapter : ListAdapter<Headlines, HealthAdapter.ListViewHolder>(DIFF_
             binding.tvAuthor.text = headlines.author
             binding.tvTitleName.text = headlines.title
             binding.tvDescHeadlines.text = headlines.description
+
+            // Update bookmark icon based on favorite status
+            if (headlines.isFavorite == true) {
+                binding.ivBookmark.setImageResource(R.drawable.baseline_bookmark_24)
+                binding.ivBookmark.setBackgroundResource(R.drawable.s_circle_shape_lightgreen)
+            } else {
+                binding.ivBookmark.setImageResource(R.drawable.baseline_bookmark_border_24)
+                binding.ivBookmark.setBackgroundResource(R.drawable.s_circle_shape_bookmarks_yellow)
+            }
         }
 
         init {
