@@ -86,4 +86,5 @@ dependencies {
     implementation(libs.koin.android)
 
     implementation("com.google.android.play:feature-delivery-ktx:2.1.0")
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 }

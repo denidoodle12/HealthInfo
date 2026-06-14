@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.expert.healthinfo.R
 import com.expert.healthinfo.core.data.Result
 import com.expert.healthinfo.core.ui.HealthAdapter
 import com.expert.healthinfo.databinding.ActivityMainBinding
@@ -43,25 +44,38 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, DetailActivity::class.java)
             intent.putExtra(DetailActivity.EXTRA_DETAIL_DATA, selectedData)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        }
+
+        // Warna indicator swipe-to-refresh sesuai tema aplikasi
+        binding.swipeRefresh.setColorSchemeResources(R.color.darkGreen)
+
+        binding.swipeRefresh.setOnRefreshListener {
+            mainViewModel.refresh()
         }
 
         mainViewModel.headlines.observe(this) { result ->
             if (result != null) {
                 when (result) {
                     is Result.Loading -> {
-                        binding.progressBar.visibility = View.VISIBLE
-                        binding.rvHealth.visibility = View.GONE
+                        // Tampilkan swipe spinner atau ProgressBar (saat pertama load)
+                        if (!binding.swipeRefresh.isRefreshing) {
+                            binding.progressBar.visibility = View.VISIBLE
+                        }
+                        binding.swipeRefresh.visibility = View.VISIBLE
                         binding.viewError.visibility = View.GONE
                     }
                     is Result.Success -> {
                         binding.progressBar.visibility = View.GONE
+                        binding.swipeRefresh.isRefreshing = false
+                        binding.swipeRefresh.visibility = View.VISIBLE
                         binding.viewError.visibility = View.GONE
-                        binding.rvHealth.visibility = View.VISIBLE
                         healthAdapter.submitList(result.data)
                     }
                     is Result.Error -> {
                         binding.progressBar.visibility = View.GONE
-                        binding.rvHealth.visibility = View.GONE
+                        binding.swipeRefresh.isRefreshing = false
+                        binding.swipeRefresh.visibility = View.GONE
                         binding.viewError.visibility = View.VISIBLE
                     }
                 }
@@ -69,6 +83,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnRetry.setOnClickListener {
+            binding.viewError.visibility = View.GONE
             mainViewModel.refresh()
         }
     }
@@ -84,7 +99,6 @@ class MainActivity : AppCompatActivity() {
         val moduleFavorite = "favorite"
         if (splitInstallManager.installedModules.contains(moduleFavorite)) {
             toFavorite()
-            Toast.makeText(this, "Open module", Toast.LENGTH_SHORT).show()
         } else {
             val request = SplitInstallRequest.newBuilder()
                 .addModule(moduleFavorite)
@@ -104,6 +118,7 @@ class MainActivity : AppCompatActivity() {
     private fun toFavorite() {
         try {
             startActivity(Intent(this, Class.forName("com.expert.healthinfo.favorite.FavoriteActivity")))
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         } catch (e: Exception) {
             Toast.makeText(this, "Module not found", Toast.LENGTH_SHORT).show()
         }

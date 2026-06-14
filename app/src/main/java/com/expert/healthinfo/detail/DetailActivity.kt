@@ -38,6 +38,7 @@ class DetailActivity : AppCompatActivity() {
         }
 
         setupFavorite()
+        setupNavigation()
     }
 
     private fun showDetailHeadlines(detailHeadlines: Headlines?) {
@@ -58,15 +59,21 @@ class DetailActivity : AppCompatActivity() {
                 if (isFavorite) {
                     headline.isFavorite = false
                     detailViewModel.deleteHeadlinesFavorite(headline)
-                    Toast.makeText(this, "Success delete to Favorite", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Removed from favorites", Toast.LENGTH_SHORT).show()
                 } else {
                     headline.isFavorite = true
                     detailViewModel.insertHeadlinesFavorite(headline)
-                    Toast.makeText(this, "Success add to Favorite", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Added to favorites", Toast.LENGTH_SHORT).show()
                 }
                 isFavorite = !isFavorite
                 setFavoriteState(isFavorite)
             }
+        }
+    }
+
+    private fun setupNavigation() {
+        binding.btnBack.setOnClickListener {
+            finish()
         }
     }
 
@@ -76,6 +83,12 @@ class DetailActivity : AppCompatActivity() {
         } else {
             binding.fabFavorite.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.favorite_border))
         }
+    }
+
+    /** Override finish() agar animasi slide out konsisten, termasuk saat back gesture/tombol sistem */
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 
     companion object {

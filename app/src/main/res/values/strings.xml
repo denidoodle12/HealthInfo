@@ -22,4 +22,6 @@
     <!-- Empty State -->
     <string name="empty_favorite_title">No Favorite Articles Yet</string>
     <string name="empty_favorite_subtitle">Tap the bookmark icon on an article detail to save it here</string>
+    <!-- Navigation -->
+    <string name="back_button">Go back</string>
 </resources>

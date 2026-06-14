@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.expert.healthinfo.R
 import com.expert.healthinfo.core.ui.HealthAdapter
 import com.expert.healthinfo.detail.DetailActivity
 import com.expert.healthinfo.favorite.databinding.ActivityFavoriteBinding
@@ -63,5 +64,11 @@ class FavoriteActivity : AppCompatActivity() {
                 healthAdapter.submitList(favoriteList)
             }
         }
+    }
+
+    /** Override finish() agar animasi fade konsisten saat kembali dari FavoriteActivity */
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
     }
 }
