@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.expert.healthinfo.R
 import com.expert.healthinfo.core.data.Result
@@ -22,12 +23,16 @@ class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
 
+    /** Track apakah user sedang aktif melakukan pencarian */
+    private var isSearching = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         showData()
+        setupSearch()
         setupAction()
     }
 
@@ -47,9 +52,7 @@ class MainActivity : AppCompatActivity() {
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
-        // Warna indicator swipe-to-refresh sesuai tema aplikasi
         binding.swipeRefresh.setColorSchemeResources(R.color.darkGreen)
-
         binding.swipeRefresh.setOnRefreshListener {
             mainViewModel.refresh()
         }
@@ -58,24 +61,34 @@ class MainActivity : AppCompatActivity() {
             if (result != null) {
                 when (result) {
                     is Result.Loading -> {
-                        // Tampilkan swipe spinner atau ProgressBar (saat pertama load)
                         if (!binding.swipeRefresh.isRefreshing) {
                             binding.progressBar.visibility = View.VISIBLE
                         }
                         binding.swipeRefresh.visibility = View.VISIBLE
                         binding.viewError.visibility = View.GONE
+                        binding.viewEmpty.visibility = View.GONE
                     }
                     is Result.Success -> {
                         binding.progressBar.visibility = View.GONE
                         binding.swipeRefresh.isRefreshing = false
-                        binding.swipeRefresh.visibility = View.VISIBLE
                         binding.viewError.visibility = View.GONE
-                        healthAdapter.submitList(result.data)
+
+                        if (result.data.isNullOrEmpty()) {
+                            // Tidak ada hasil — tampilkan empty state dengan pesan kontekstual
+                            binding.swipeRefresh.visibility = View.GONE
+                            binding.viewEmpty.visibility = View.VISIBLE
+                            updateEmptyStateMessage()
+                        } else {
+                            binding.viewEmpty.visibility = View.GONE
+                            binding.swipeRefresh.visibility = View.VISIBLE
+                            healthAdapter.submitList(result.data)
+                        }
                     }
                     is Result.Error -> {
                         binding.progressBar.visibility = View.GONE
                         binding.swipeRefresh.isRefreshing = false
                         binding.swipeRefresh.visibility = View.GONE
+                        binding.viewEmpty.visibility = View.GONE
                         binding.viewError.visibility = View.VISIBLE
                     }
                 }
@@ -85,6 +98,40 @@ class MainActivity : AppCompatActivity() {
         binding.btnRetry.setOnClickListener {
             binding.viewError.visibility = View.GONE
             mainViewModel.refresh()
+        }
+    }
+
+    private fun setupSearch() {
+        binding.searchViewItem.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                // Sembunyikan keyboard setelah submit
+                binding.searchViewItem.clearFocus()
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                val query = newText.orEmpty().trim()
+                isSearching = query.isNotEmpty()
+                mainViewModel.setSearchQuery(query)
+                return true
+            }
+        })
+    }
+
+    /**
+     * Update pesan empty state secara kontekstual:
+     * - Saat search aktif: "No Articles Found" + "Try a different keyword"
+     * - Saat tidak search: "No Articles Available" + "Pull down to refresh"
+     */
+    private fun updateEmptyStateMessage() {
+        if (isSearching) {
+            binding.tvEmptyTitle.setText(R.string.empty_search_title)
+            binding.tvEmptySubtitle.setText(R.string.empty_search_subtitle)
+            binding.tvEmptyIcon.text = "\uD83D\uDD0D" // 🔍
+        } else {
+            binding.tvEmptyTitle.setText(R.string.empty_data_title)
+            binding.tvEmptySubtitle.setText(R.string.empty_data_subtitle)
+            binding.tvEmptyIcon.text = "\uD83D\uDCF0" // 📰
         }
     }
 

@@ -7,8 +7,8 @@ import kotlinx.coroutines.flow.Flow
 
 class HeadlinesInteractor(private val headlinesRepository: IheadlinesRepository) : HeadlinesUseCase {
 
-    override fun getAllHeadlines(): Flow<Result<List<Headlines>>> {
-        return headlinesRepository.getAllHeadlines()
+    override fun getAllHeadlines(query: String): Flow<Result<List<Headlines>>> {
+        return headlinesRepository.getAllHeadlines(query)
     }
 
     override fun getFavoriteHeadlines(): Flow<List<Headlines>> {

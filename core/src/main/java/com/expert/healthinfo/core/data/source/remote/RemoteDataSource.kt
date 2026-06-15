@@ -11,21 +11,23 @@ import kotlinx.coroutines.flow.flowOn
 
 class RemoteDataSource(private val apiService: ApiService) {
 
-    suspend fun getAllHeadlines(): Flow<ApiResponse<List<HeadlinesResponse>>> {
+    /**
+     * @param query Kata kunci pencarian. Jika kosong/blank, mengembalikan
+     *              top health headlines tanpa filter (parameter q tidak dikirim ke API).
+     */
+    suspend fun getAllHeadlines(query: String = ""): Flow<ApiResponse<List<HeadlinesResponse>>> {
         return flow {
             try {
-                val response = apiService.getListHeadlines()
-                val data = response.articles
-                if (data.isNotEmpty()) {
-                    emit(ApiResponse.Success(data))
-                } else {
-                    emit(ApiResponse.Empty)
-                }
+                val response = apiService.getListHeadlines(
+                    q = if (query.isBlank()) null else query
+                )
+                // Selalu emit Success (termasuk list kosong) agar NetworkBoundResource
+                // bisa menghasilkan Result.Success(emptyList()) untuk empty search results.
+                emit(ApiResponse.Success(response.articles))
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
                 Log.e("RemoteDataSource", e.toString())
             }
         }.flowOn(Dispatchers.IO)
     }
-
 }

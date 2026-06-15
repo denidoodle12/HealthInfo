@@ -3,7 +3,7 @@
     <string name="hint_search">Search Info</string>
     <string name="content_description_bookmarks_article">This is Bookmarks</string>
     <string name="author_name_headlines">Author\'s Name</string>
-    <string name="title_name_headlines">Nama Headlines</string>
+    <string name="title_name_headlines">Headlines Name</string>
     <string name="tvDescHeadlines">Description Headlines</string>
     <string name="content_description_image">This is Image of Headlines</string>
     <string name="hello">Hello, Welcome to</string>
@@ -24,4 +24,10 @@
     <string name="empty_favorite_subtitle">Tap the bookmark icon on an article detail to save it here</string>
     <!-- Navigation -->
     <string name="back_button">Go back</string>
+    <!-- Search Empty State -->
+    <string name="empty_search_title">No Articles Found</string>
+    <string name="empty_search_subtitle">Try searching with a different keyword</string>
+    <!-- No Data State (default load with no results) -->
+    <string name="empty_data_title">No Articles Available</string>
+    <string name="empty_data_subtitle">Pull down to refresh and try again</string>
 </resources>

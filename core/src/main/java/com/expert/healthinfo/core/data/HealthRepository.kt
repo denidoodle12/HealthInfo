@@ -16,20 +16,20 @@ class HealthRepository(
     private val localDataSource: LocalDataSource
 ) : IheadlinesRepository {
 
-    override fun getAllHeadlines(): Flow<Result<List<Headlines>>> {
-        // Flow dari API (selalu isFavorite = false)
+    override fun getAllHeadlines(query: String): Flow<Result<List<Headlines>>> {
+        // API Flow: fetch dari network dengan query keyword
         val apiFlow = object : NetworkBoundResource<List<Headlines>, List<HeadlinesResponse>>() {
             override fun loadFromNetwork(data: List<HeadlinesResponse>): Flow<List<Headlines>> {
                 return DataMapper.mapResponsesToDomain(data)
             }
 
             override suspend fun createCall(): Flow<ApiResponse<List<HeadlinesResponse>>> {
-                return remoteDataSource.getAllHeadlines()
+                return remoteDataSource.getAllHeadlines(query)
             }
         }.asFlow()
 
         // Combine API flow dengan favorites dari Room secara reaktif.
-        // Setiap kali user add/remove favorite, Room emit data baru →
+        // Ketika user add/remove favorite, Room emit data baru →
         // combine() re-emit → isFavorite di daftar utama otomatis terupdate.
         return combine(apiFlow, localDataSource.getFavoriteHeadlines()) { result, favorites ->
             when (result) {

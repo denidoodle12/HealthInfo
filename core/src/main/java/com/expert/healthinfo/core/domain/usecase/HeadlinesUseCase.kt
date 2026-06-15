@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface HeadlinesUseCase {
 
-    fun getAllHeadlines(): Flow<Result<List<Headlines>>>
+    fun getAllHeadlines(query: String = ""): Flow<Result<List<Headlines>>>
 
     fun getFavoriteHeadlines(): Flow<List<Headlines>>
 
