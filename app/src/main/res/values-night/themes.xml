@@ -1,7 +1,28 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.HealthInfo" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">#4DB6AC</item>
+        <item name="colorOnPrimary">#003731</item>
+        <item name="colorPrimaryContainer">#00504A</item>
+        <item name="colorOnPrimaryContainer">#B2DFDB</item>
+        
+        <item name="colorSecondary">#80CBC4</item>
+        <item name="colorOnSecondary">#00332F</item>
+        
+        <item name="colorTertiary">#FFB74D</item>
+        <item name="colorOnTertiary">#462B00</item>
+        <item name="colorTertiaryContainer">#FFCC80</item>
+        
+        <item name="colorSurface">#1A1C1B</item>
+        <item name="colorOnSurface">#E1E3E1</item>
+        <item name="colorSurfaceVariant">#3F4946</item>
+        
+        <item name="colorError">#FFB4AB</item>
+        <item name="colorOnError">#690005</item>
+        
+        <item name="android:statusBarColor">?attr/colorSurface</item>
+        <item name="android:navigationBarColor">?attr/colorSurface</item>
+        
+        <item name="android:fontFamily">@font/poppins</item>
     </style>
 </resources>

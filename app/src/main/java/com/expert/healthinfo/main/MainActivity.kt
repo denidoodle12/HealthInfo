@@ -31,6 +31,11 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Set ukuran hint text SearchView ke 14sp (queryTextSize tidak tersedia via XML)
+        val searchAutoComplete = binding.searchViewItem
+            .findViewById<android.widget.AutoCompleteTextView>(androidx.appcompat.R.id.search_src_text)
+        searchAutoComplete?.textSize = 14f
+
         showData()
         setupSearch()
         setupAction()
@@ -52,7 +57,8 @@ class MainActivity : AppCompatActivity() {
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
-        binding.swipeRefresh.setColorSchemeResources(R.color.darkGreen)
+
+        binding.swipeRefresh.setColorSchemeResources(R.color.colorPrimary)
         binding.swipeRefresh.setOnRefreshListener {
             mainViewModel.refresh()
         }

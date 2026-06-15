@@ -27,7 +27,16 @@ class FavoriteActivity : AppCompatActivity() {
 
         loadKoinModules(favoriteModule)
 
+        setupNavigation()
         showData()
+    }
+
+    private fun setupNavigation() {
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        binding.toolbar.setNavigationOnClickListener {
+            finish()
+        }
     }
 
     private fun showData() {

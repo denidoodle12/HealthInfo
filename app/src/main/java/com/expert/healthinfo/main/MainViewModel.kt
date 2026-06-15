@@ -2,6 +2,8 @@ package com.expert.healthinfo.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
+import com.expert.healthinfo.core.domain.model.Headlines
 import com.expert.healthinfo.core.domain.usecase.HeadlinesUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -9,6 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.launch
 
 class MainViewModel(private val headlinesUseCase: HeadlinesUseCase) : ViewModel() {
 
@@ -49,5 +52,19 @@ class MainViewModel(private val headlinesUseCase: HeadlinesUseCase) : ViewModel(
     /** Dipanggil dari tombol "Try Again" saat error */
     fun refresh() {
         _refreshTrigger.value += 1
+    }
+
+    /** Insert artikel ke daftar favorit */
+    fun insertHeadlinesFavorite(headlines: Headlines) {
+        viewModelScope.launch {
+            headlinesUseCase.insertFavoriteHeadlines(headlines)
+        }
+    }
+
+    /** Hapus artikel dari daftar favorit */
+    fun deleteHeadlinesFavorite(headlines: Headlines) {
+        viewModelScope.launch {
+            headlinesUseCase.deleteFavoriteHeadlines(headlines)
+        }
     }
 }

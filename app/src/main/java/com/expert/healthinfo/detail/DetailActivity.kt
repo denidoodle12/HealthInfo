@@ -72,16 +72,29 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setupNavigation() {
-        binding.btnBack.setOnClickListener {
+        binding.toolbar.setNavigationOnClickListener {
             finish()
         }
     }
 
     private fun setFavoriteState(isFavorite: Boolean) {
+        val context = binding.root.context
         if (isFavorite) {
             binding.fabFavorite.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.favorite))
+            binding.fabFavorite.backgroundTintList = android.content.res.ColorStateList.valueOf(
+                ContextCompat.getColor(context, R.color.colorPrimary)
+            )
+            binding.fabFavorite.imageTintList = android.content.res.ColorStateList.valueOf(
+                ContextCompat.getColor(context, R.color.colorOnPrimary)
+            )
         } else {
             binding.fabFavorite.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.favorite_border))
+            binding.fabFavorite.backgroundTintList = android.content.res.ColorStateList.valueOf(
+                ContextCompat.getColor(context, R.color.colorTertiaryContainer)
+            )
+            binding.fabFavorite.imageTintList = android.content.res.ColorStateList.valueOf(
+                ContextCompat.getColor(context, R.color.colorTertiary)
+            )
         }
     }
 

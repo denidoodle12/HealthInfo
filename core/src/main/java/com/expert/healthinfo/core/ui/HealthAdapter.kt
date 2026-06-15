@@ -35,12 +35,19 @@ class HealthAdapter : ListAdapter<Headlines, HealthAdapter.ListViewHolder>(DIFF_
             binding.tvDescHeadlines.text = headlines.description
 
             // Update bookmark icon based on favorite status
+            val context = binding.root.context
             if (headlines.isFavorite == true) {
                 binding.ivBookmark.setImageResource(R.drawable.baseline_bookmark_24)
                 binding.ivBookmark.setBackgroundResource(R.drawable.s_circle_shape_lightgreen)
+                binding.ivBookmark.imageTintList = android.content.res.ColorStateList.valueOf(
+                    androidx.core.content.ContextCompat.getColor(context, R.color.colorOnPrimary)
+                )
             } else {
                 binding.ivBookmark.setImageResource(R.drawable.baseline_bookmark_border_24)
                 binding.ivBookmark.setBackgroundResource(R.drawable.s_circle_shape_bookmarks_yellow)
+                binding.ivBookmark.imageTintList = android.content.res.ColorStateList.valueOf(
+                    androidx.core.content.ContextCompat.getColor(context, R.color.colorTertiary)
+                )
             }
         }
 
@@ -48,6 +55,9 @@ class HealthAdapter : ListAdapter<Headlines, HealthAdapter.ListViewHolder>(DIFF_
             itemView.setOnClickListener {
                 onItemClick?.invoke(getItem(bindingAdapterPosition))
             }
+            // Bookmark adalah indikator visual saja — action add/remove hanya dari halaman detail
+            binding.ivBookmark.isClickable = false
+            binding.ivBookmark.isFocusable = false
         }
     }
 
