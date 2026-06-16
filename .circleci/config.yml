@@ -53,7 +53,7 @@ jobs:
 
       - run:
           name: Run lint analysis
-          command: ./gradlew lint --no-daemon
+          command: ./gradlew :app:lint :core:lint --no-daemon
 
       - run:
           name: Build debug APK

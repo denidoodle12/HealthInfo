@@ -35,6 +35,15 @@ android {
     }
 }
 
+// Force resolve annotation dependency conflict:
+// :core uses annotation:1.9.1 but :favorite's debugRuntimeClasspath resolves to 1.8.1
+// causing a strict constraint conflict during lint analysis.
+configurations.all {
+    resolutionStrategy {
+        force("androidx.annotation:annotation:1.8.1")
+    }
+}
+
 dependencies {
     implementation(project(":core"))
     implementation(project(":app"))
@@ -45,5 +54,4 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    androidTestImplementation(libs.annotation)
 }
