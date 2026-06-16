@@ -6,7 +6,6 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.expert.healthinfo.core.domain.model.Headlines
 import com.expert.healthinfo.core.domain.usecase.HeadlinesUseCase
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class DetailViewModel(private val headlinesUseCase: HeadlinesUseCase) : ViewModel() {
@@ -16,13 +15,13 @@ class DetailViewModel(private val headlinesUseCase: HeadlinesUseCase) : ViewMode
     }
 
     fun insertHeadlinesFavorite(headlines: Headlines) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             headlinesUseCase.insertFavoriteHeadlines(headlines)
         }
     }
 
     fun deleteHeadlinesFavorite(headlines: Headlines) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             headlinesUseCase.deleteFavoriteHeadlines(headlines)
         }
     }

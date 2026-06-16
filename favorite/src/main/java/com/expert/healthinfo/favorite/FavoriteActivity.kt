@@ -76,8 +76,14 @@ class FavoriteActivity : AppCompatActivity() {
     }
 
     /** Override finish() agar animasi fade konsisten saat kembali dari FavoriteActivity */
+    @Suppress("DEPRECATION")
     override fun finish() {
         super.finish()
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

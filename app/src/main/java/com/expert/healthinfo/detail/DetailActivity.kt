@@ -1,5 +1,6 @@
 package com.expert.healthinfo.detail
 
+import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -81,24 +82,25 @@ class DetailActivity : AppCompatActivity() {
         val context = binding.root.context
         if (isFavorite) {
             binding.fabFavorite.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.favorite))
-            binding.fabFavorite.backgroundTintList = android.content.res.ColorStateList.valueOf(
+            binding.fabFavorite.backgroundTintList = ColorStateList.valueOf(
                 ContextCompat.getColor(context, R.color.colorPrimary)
             )
-            binding.fabFavorite.imageTintList = android.content.res.ColorStateList.valueOf(
+            binding.fabFavorite.imageTintList = ColorStateList.valueOf(
                 ContextCompat.getColor(context, R.color.colorOnPrimary)
             )
         } else {
             binding.fabFavorite.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.favorite_border))
-            binding.fabFavorite.backgroundTintList = android.content.res.ColorStateList.valueOf(
+            binding.fabFavorite.backgroundTintList = ColorStateList.valueOf(
                 ContextCompat.getColor(context, R.color.colorTertiaryContainer)
             )
-            binding.fabFavorite.imageTintList = android.content.res.ColorStateList.valueOf(
+            binding.fabFavorite.imageTintList = ColorStateList.valueOf(
                 ContextCompat.getColor(context, R.color.colorTertiary)
             )
         }
     }
 
     /** Override finish() agar animasi slide out konsisten, termasuk saat back gesture/tombol sistem */
+    @Suppress("DEPRECATION")
     override fun finish() {
         super.finish()
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)

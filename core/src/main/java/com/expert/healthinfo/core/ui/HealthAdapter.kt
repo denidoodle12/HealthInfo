@@ -1,7 +1,9 @@
 package com.expert.healthinfo.core.ui
 
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -39,14 +41,14 @@ class HealthAdapter : ListAdapter<Headlines, HealthAdapter.ListViewHolder>(DIFF_
             if (headlines.isFavorite == true) {
                 binding.ivBookmark.setImageResource(R.drawable.baseline_bookmark_24)
                 binding.ivBookmark.setBackgroundResource(R.drawable.s_circle_shape_lightgreen)
-                binding.ivBookmark.imageTintList = android.content.res.ColorStateList.valueOf(
-                    androidx.core.content.ContextCompat.getColor(context, R.color.colorOnPrimary)
+                binding.ivBookmark.imageTintList = ColorStateList.valueOf(
+                    ContextCompat.getColor(context, R.color.colorOnPrimary)
                 )
             } else {
                 binding.ivBookmark.setImageResource(R.drawable.baseline_bookmark_border_24)
                 binding.ivBookmark.setBackgroundResource(R.drawable.s_circle_shape_bookmarks_yellow)
-                binding.ivBookmark.imageTintList = android.content.res.ColorStateList.valueOf(
-                    androidx.core.content.ContextCompat.getColor(context, R.color.colorTertiary)
+                binding.ivBookmark.imageTintList = ColorStateList.valueOf(
+                    ContextCompat.getColor(context, R.color.colorTertiary)
                 )
             }
         }

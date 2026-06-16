@@ -54,6 +54,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, DetailActivity::class.java)
             intent.putExtra(DetailActivity.EXTRA_DETAIL_DATA, selectedData)
             startActivity(intent)
+            @Suppress("DEPRECATION")
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
@@ -168,6 +169,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @Suppress("DEPRECATION")
     private fun toFavorite() {
         try {
             startActivity(Intent(this, Class.forName("com.expert.healthinfo.favorite.FavoriteActivity")))
