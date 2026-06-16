@@ -1,0 +1,89 @@
+version: 2.1
+
+# HealthInfo Android CI Pipeline
+# Runs on every push to master/main and all pull requests.
+# Pipeline steps: unit tests → lint analysis → build debug APK
+
+jobs:
+  build:
+    docker:
+      - image: cimg/android:2024.07.1
+    resource_class: large
+    working_directory: ~/project
+    environment:
+      # Disable Gradle daemon for CI (fresh container each run)
+      GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2 -Dkotlin.incremental=false"
+      JVM_OPTS: "-Xmx3200m"
+
+    steps:
+      - checkout
+
+      - run:
+          name: Create local.properties
+          command: |
+            echo "API_KEY=${API_KEY}" > local.properties
+            echo "sdk.dir=${ANDROID_SDK_ROOT}" >> local.properties
+
+      - run:
+          name: Grant execute permission for gradlew
+          command: chmod +x ./gradlew
+
+      # Restore Gradle dependency cache
+      - restore_cache:
+          keys:
+            - gradle-{{ checksum "gradle/libs.versions.toml" }}-{{ checksum "app/build.gradle.kts" }}-{{ checksum "core/build.gradle.kts" }}
+            - gradle-{{ checksum "gradle/libs.versions.toml" }}
+            - gradle-
+
+      - run:
+          name: Download dependencies
+          command: ./gradlew dependencies --no-daemon
+
+      - run:
+          name: Run unit tests
+          command: ./gradlew test --no-daemon
+
+      - run:
+          name: Run lint analysis
+          command: ./gradlew lint --no-daemon
+
+      - run:
+          name: Build debug APK
+          command: ./gradlew assembleDebug --no-daemon
+
+      # Save Gradle dependency cache
+      - save_cache:
+          paths:
+            - ~/.gradle/caches
+            - ~/.gradle/wrapper
+          key: gradle-{{ checksum "gradle/libs.versions.toml" }}-{{ checksum "app/build.gradle.kts" }}-{{ checksum "core/build.gradle.kts" }}
+
+      # Store APK as artifact (dapat didownload dari CircleCI dashboard)
+      - store_artifacts:
+          path: app/build/outputs/apk/debug
+          destination: apk
+
+      # Store lint reports
+      - store_artifacts:
+          path: app/build/reports
+          destination: lint-report-app
+
+      - store_artifacts:
+          path: core/build/reports
+          destination: lint-report-core
+
+      - store_artifacts:
+          path: favorite/build/reports
+          destination: lint-report-favorite
+
+      # Store test results (ditampilkan di tab "Tests" CircleCI)
+      - store_test_results:
+          path: app/build/test-results
+
+      - store_test_results:
+          path: core/build/test-results
+
+workflows:
+  build-and-test:
+    jobs:
+      - build
