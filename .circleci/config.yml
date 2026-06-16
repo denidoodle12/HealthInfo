@@ -12,11 +12,19 @@ jobs:
     working_directory: ~/project
     environment:
       # Disable Gradle daemon for CI (fresh container each run)
-      GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2 -Dkotlin.incremental=false"
+      GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2 -Dkotlin.incremental=false -Dorg.gradle.java.home=/usr/lib/jvm/java-17-openjdk-amd64"
       JVM_OPTS: "-Xmx3200m"
 
     steps:
       - checkout
+
+      - run:
+          name: Set Java 17 (override default JDK 21)
+          command: |
+            echo "export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64" >> $BASH_ENV
+            echo "export PATH=/usr/lib/jvm/java-17-openjdk-amd64/bin:$PATH" >> $BASH_ENV
+            source $BASH_ENV
+            java -version
 
       - run:
           name: Create local.properties
@@ -41,7 +49,7 @@ jobs:
 
       - run:
           name: Run unit tests
-          command: ./gradlew test --no-daemon
+          command: ./gradlew :app:testDebugUnitTest :core:testDebugUnitTest --no-daemon --continue
 
       - run:
           name: Run lint analysis
@@ -78,10 +86,10 @@ jobs:
 
       # Store test results (ditampilkan di tab "Tests" CircleCI)
       - store_test_results:
-          path: app/build/test-results
+          path: app/build/test-results/testDebugUnitTest
 
       - store_test_results:
-          path: core/build/test-results
+          path: core/build/test-results/testDebugUnitTest
 
 workflows:
   build-and-test:
