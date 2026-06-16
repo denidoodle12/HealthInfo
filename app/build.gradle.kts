@@ -87,4 +87,7 @@ dependencies {
 
     implementation("com.google.android.play:feature-delivery-ktx:2.1.0")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
+    // Performance — Memory Leak Detection (debug only, tidak masuk release build)
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.14")
 }

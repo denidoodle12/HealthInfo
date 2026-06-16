@@ -85,3 +85,16 @@
 -keep class * implements android.os.Parcelable {
     public static final android.os.Parcelable$Creator *;
 }
+
+# ========================
+# SQLCipher — Database Encryption
+# ========================
+-keep class net.sqlcipher.** { *; }
+-keep class net.sqlcipher.database.** { *; }
+-dontwarn net.sqlcipher.**
+
+# ========================
+# AndroidX Security Crypto — EncryptedSharedPreferences
+# ========================
+-keep class androidx.security.crypto.** { *; }
+-dontwarn androidx.security.crypto.**

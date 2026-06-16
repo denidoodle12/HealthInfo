@@ -176,4 +176,9 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Module not found", Toast.LENGTH_SHORT).show()
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

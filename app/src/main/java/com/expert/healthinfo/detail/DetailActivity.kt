@@ -104,6 +104,11 @@ class DetailActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
     companion object {
         const val EXTRA_DETAIL_DATA = "extra_detail_data"
     }

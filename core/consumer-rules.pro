@@ -34,3 +34,16 @@
 # Domain model (Parcelable)
 # ========================
 -keep class com.expert.healthinfo.core.domain.model.** { *; }
+
+# ========================
+# SQLCipher — Database Encryption
+# ========================
+-keep class net.sqlcipher.** { *; }
+-keep class net.sqlcipher.database.** { *; }
+-dontwarn net.sqlcipher.**
+
+# ========================
+# AndroidX Security Crypto — EncryptedSharedPreferences
+# ========================
+-keep class androidx.security.crypto.** { *; }
+-dontwarn androidx.security.crypto.**
