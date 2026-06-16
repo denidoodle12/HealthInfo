@@ -22,34 +22,48 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
+import android.provider.Settings
+
 private const val DB_PASSPHRASE_KEY = "db_passphrase"
 private const val PREFS_FILE_NAME = "health_info_secure_prefs"
 
 /**
  * Membuat atau mengambil passphrase database dari EncryptedSharedPreferences.
  * Passphrase di-generate sekali dan disimpan secara aman menggunakan AES-256-GCM.
+ *
+ * Fallback: jika EncryptedSharedPreferences gagal (misal Keystore error pada device tertentu),
+ * gunakan ANDROID_ID sebagai passphrase deterministik agar app tetap berjalan.
  */
 private fun getOrCreatePassphrase(context: Context): CharArray {
-    val masterKey = MasterKey.Builder(context)
-        .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
-        .build()
+    return try {
+        val masterKey = MasterKey.Builder(context)
+            .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+            .build()
 
-    val encryptedPrefs = EncryptedSharedPreferences.create(
-        context,
-        PREFS_FILE_NAME,
-        masterKey,
-        EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-        EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-    )
+        val encryptedPrefs = EncryptedSharedPreferences.create(
+            context,
+            PREFS_FILE_NAME,
+            masterKey,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
 
-    return if (encryptedPrefs.contains(DB_PASSPHRASE_KEY)) {
-        encryptedPrefs.getString(DB_PASSPHRASE_KEY, null)!!.toCharArray()
-    } else {
-        // Generate passphrase acak 32 karakter
-        val charset = ('A'..'Z') + ('a'..'z') + ('0'..'9')
-        val passphrase = (1..32).map { charset.random() }.joinToString("")
-        encryptedPrefs.edit().putString(DB_PASSPHRASE_KEY, passphrase).apply()
-        passphrase.toCharArray()
+        if (encryptedPrefs.contains(DB_PASSPHRASE_KEY)) {
+            encryptedPrefs.getString(DB_PASSPHRASE_KEY, null)!!.toCharArray()
+        } else {
+            // Generate passphrase acak 32 karakter
+            val charset = ('A'..'Z') + ('a'..'z') + ('0'..'9')
+            val passphrase = (1..32).map { charset.random() }.joinToString("")
+            encryptedPrefs.edit().putString(DB_PASSPHRASE_KEY, passphrase).apply()
+            passphrase.toCharArray()
+        }
+    } catch (e: Exception) {
+        // Fallback: gunakan ANDROID_ID sebagai passphrase (deterministik per device)
+        val androidId = Settings.Secure.getString(
+            context.contentResolver,
+            Settings.Secure.ANDROID_ID
+        ) ?: "healthinfo_fallback_key"
+        androidId.toCharArray()
     }
 }
 
@@ -65,7 +79,11 @@ val databaseModule = module {
 
         Room.databaseBuilder(
             androidContext(),
-            HeadlinesDatabase::class.java, "Headlines.db"
+            HeadlinesDatabase::class.java,
+            // Nama baru "Headlines_secure.db" agar SQLCipher membuat
+            // database terenkripsi baru, bukan mencoba membuka file
+            // lama (unencrypted) yang menyebabkan crash.
+            "Headlines_secure.db"
         )
             .openHelperFactory(factory)
             .fallbackToDestructiveMigration()

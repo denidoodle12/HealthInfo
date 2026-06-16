@@ -81,4 +81,9 @@ dependencies {
     implementation(libs.sqlcipher)
     implementation(libs.sqlite.ktx)
     implementation(libs.security.crypto)
+
+    // Unit Testing — Domain layer
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.kotlinx.coroutines.test)
 }
