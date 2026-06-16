@@ -88,6 +88,21 @@
             </com.google.android.material.card.MaterialCardView>
 
             <ImageButton
+                android:id="@+id/imgAbout"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="8dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_developer_placeholder"
+                android:background="@drawable/s_circle_shape_lightgreen"
+                app:tint="?attr/colorOnPrimary"
+                android:scaleType="centerInside"
+                android:contentDescription="@string/content_desc_about_icon"
+                app:layout_constraintEnd_toStartOf="@+id/imgFavorite"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
                 android:id="@+id/imgFavorite"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -98,6 +113,7 @@
                 android:background="@drawable/s_circle_shape_bookmarks_yellow"
                 app:tint="?attr/colorTertiary"
                 android:scaleType="centerInside"
+                android:contentDescription="@string/content_description_bookmarks_article"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

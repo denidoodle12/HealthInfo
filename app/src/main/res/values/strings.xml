@@ -30,4 +30,12 @@
     <!-- No Data State (default load with no results) -->
     <string name="empty_data_title">No Articles Available</string>
     <string name="empty_data_subtitle">Pull down to refresh and try again</string>
+    <!-- About Page -->
+    <string name="about">About</string>
+    <string name="about_developer_name">Deni Ramdani</string>
+    <string name="about_developer_email">deni.ramdani@dicoding.com</string>
+    <string name="about_developer_university">Universitas Pendidikan Indonesia</string>
+    <string name="about_description">Android Developer passionate about building clean, modern apps. This app provides the latest health news powered by NewsAPI.</string>
+    <string name="content_desc_profile_photo">Developer profile photo</string>
+    <string name="content_desc_about_icon">About icon</string>
 </resources>

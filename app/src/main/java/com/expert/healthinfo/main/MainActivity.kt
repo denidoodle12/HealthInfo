@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.expert.healthinfo.R
 import com.expert.healthinfo.core.data.Result
 import com.expert.healthinfo.core.ui.HealthAdapter
+import com.expert.healthinfo.about.AboutActivity
 import com.expert.healthinfo.databinding.ActivityMainBinding
 import com.expert.healthinfo.detail.DetailActivity
 import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
@@ -146,6 +147,9 @@ class MainActivity : AppCompatActivity() {
         binding.imgFavorite.setOnClickListener {
             installFavoriteModule()
         }
+        binding.imgAbout.setOnClickListener {
+            toAbout()
+        }
     }
 
     private fun installFavoriteModule() {
@@ -177,6 +181,12 @@ class MainActivity : AppCompatActivity() {
         } catch (e: Exception) {
             Toast.makeText(this, "Module not found", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    @Suppress("DEPRECATION")
+    private fun toAbout() {
+        startActivity(Intent(this, AboutActivity::class.java))
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 
     override fun onDestroy() {

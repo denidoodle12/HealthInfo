@@ -31,6 +31,8 @@ jobs:
           command: |
             echo "API_KEY=${API_KEY}" > local.properties
             echo "sdk.dir=${ANDROID_SDK_ROOT}" >> local.properties
+            # Remove Windows-specific JDK path from gradle.properties (CI uses JAVA_HOME instead)
+            sed -i '/org.gradle.java.home/d' gradle.properties
 
       - run:
           name: Grant execute permission for gradlew

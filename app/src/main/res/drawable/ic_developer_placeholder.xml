@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="110dp"
+    android:height="110dp"
+    android:viewportWidth="110"
+    android:viewportHeight="110">
+
+    <!-- Background circle -->
+    <path
+        android:fillColor="#E8F0FE"
+        android:pathData="M55,55 m-55,0 a55,55 0 1,0 110,0 a55,55 0 1,0 -110,0" />
+
+    <!-- Body/shirt -->
+    <path
+        android:fillColor="#1976D2"
+        android:pathData="M20,100 Q20,75 55,72 Q90,75 90,100 Z" />
+
+    <!-- Head circle -->
+    <path
+        android:fillColor="#BBDEFB"
+        android:pathData="M55,30 m-20,0 a20,20 0 1,0 40,0 a20,20 0 1,0 -40,0" />
+
+</vector>
