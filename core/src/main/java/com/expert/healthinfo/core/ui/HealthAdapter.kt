@@ -36,7 +36,6 @@ class HealthAdapter : ListAdapter<Headlines, HealthAdapter.ListViewHolder>(DIFF_
             binding.tvTitleName.text = headlines.title
             binding.tvDescHeadlines.text = headlines.description
 
-            // Update bookmark icon based on favorite status
             val context = binding.root.context
             if (headlines.isFavorite == true) {
                 binding.ivBookmark.setImageResource(R.drawable.baseline_bookmark_24)

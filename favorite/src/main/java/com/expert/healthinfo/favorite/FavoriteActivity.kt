@@ -1,9 +1,9 @@
 package com.expert.healthinfo.favorite
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.expert.healthinfo.R
 import com.expert.healthinfo.core.ui.HealthAdapter

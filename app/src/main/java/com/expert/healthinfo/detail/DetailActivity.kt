@@ -1,9 +1,9 @@
 package com.expert.healthinfo.detail
 
 import android.content.res.ColorStateList
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.IntentCompat.getParcelableExtra
 import com.bumptech.glide.Glide
@@ -43,14 +43,14 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun showDetailHeadlines(detailHeadlines: Headlines?) {
-        detailHeadlines.let {
+        detailHeadlines?.let {
             Glide.with(this@DetailActivity)
-                .load(detailHeadlines?.urlToImage)
+                .load(it.urlToImage)
                 .into(binding.ivDetailImg)
 
-            binding.tvDetailTitle.text = detailHeadlines?.title
-            binding.tvDetailAuthor.text = detailHeadlines?.author
-            binding.tvDetailDescription.text = detailHeadlines?.description
+            binding.tvDetailTitle.text = it.title
+            binding.tvDetailAuthor.text = it.author
+            binding.tvDetailDescription.text = it.description
         }
     }
 
@@ -60,11 +60,11 @@ class DetailActivity : AppCompatActivity() {
                 if (isFavorite) {
                     headline.isFavorite = false
                     detailViewModel.deleteHeadlinesFavorite(headline)
-                    Toast.makeText(this, "Removed from favorites", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, R.string.removed_from_favorites, Toast.LENGTH_SHORT).show()
                 } else {
                     headline.isFavorite = true
                     detailViewModel.insertHeadlinesFavorite(headline)
-                    Toast.makeText(this, "Added to favorites", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, R.string.added_to_favorites, Toast.LENGTH_SHORT).show()
                 }
                 isFavorite = !isFavorite
                 setFavoriteState(isFavorite)

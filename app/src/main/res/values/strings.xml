@@ -9,7 +9,7 @@
     <string name="hello">Hello, Welcome to</string>
     <string name="user">HealthInfo</string>
     <string name="txtheadingappbar">find your related headlines here</string>
-    <string name="searchItem">Search Headlines...</string>
+    <string name="searchItem">Search Headlines&#8230;</string>
     <string name="title_favorite">Favorite</string>
     <string name="content_desc_imgDetail">This is an detail image</string>
     <string name="detail_author">Author Name</string>
@@ -38,4 +38,25 @@
     <string name="about_description">Android Developer passionate about building clean, modern apps. This app provides the latest health news powered by NewsAPI.</string>
     <string name="content_desc_profile_photo">Developer profile photo</string>
     <string name="content_desc_about_icon">About icon</string>
+    <!-- Dynamic Feature Module -->
+    <string name="module_install_success">Favorite module installed successfully</string>
+    <string name="module_install_failed">Failed to install favorite module</string>
+    <string name="module_not_found">Module not found</string>
+    <!-- Favorite Actions -->
+    <string name="added_to_favorites">Added to favorites</string>
+    <string name="removed_from_favorites">Removed from favorites</string>
+    <!-- About Page — Section Titles -->
+    <string name="about_section_title_app">About App</string>
+    <string name="about_section_title_tech">Tech Stack</string>
+    <!-- About Page — Tech Stack Labels -->
+    <string name="about_tech_label_architecture">Architecture</string>
+    <string name="about_tech_value_architecture">Clean Architecture</string>
+    <string name="about_tech_label_language">Language</string>
+    <string name="about_tech_value_language">Kotlin</string>
+    <string name="about_tech_label_di">DI Framework</string>
+    <string name="about_tech_value_di">Koin</string>
+    <string name="about_tech_label_datasource">Data Source</string>
+    <string name="about_tech_value_datasource">NewsAPI.org</string>
+    <string name="about_tech_label_security">Security</string>
+    <string name="about_tech_value_security">SQLCipher + Cert. Pinning</string>
 </resources>

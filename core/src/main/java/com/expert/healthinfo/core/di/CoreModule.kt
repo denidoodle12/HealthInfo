@@ -1,6 +1,8 @@
 package com.expert.healthinfo.core.di
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.provider.Settings
 import androidx.room.Room
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
@@ -22,8 +24,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-import android.provider.Settings
-
 private const val DB_PASSPHRASE_KEY = "db_passphrase"
 private const val PREFS_FILE_NAME = "health_info_secure_prefs"
 
@@ -33,7 +33,11 @@ private const val PREFS_FILE_NAME = "health_info_secure_prefs"
  *
  * Fallback: jika EncryptedSharedPreferences gagal (misal Keystore error pada device tertentu),
  * gunakan ANDROID_ID sebagai passphrase deterministik agar app tetap berjalan.
+ *
+ * @SuppressLint("HardwareIds") digunakan karena ANDROID_ID hanya dipakai sebagai
+ * fallback passphrase database — konteks keamanan yang valid untuk identifier unik device.
  */
+@SuppressLint("HardwareIds")
 private fun getOrCreatePassphrase(context: Context): CharArray {
     return try {
         val masterKey = MasterKey.Builder(context)
@@ -73,7 +77,6 @@ val databaseModule = module {
     }
 
     single {
-        // Passphrase diambil dari EncryptedSharedPreferences
         val passphrase = getOrCreatePassphrase(androidContext())
         val factory = SupportFactory(SQLiteDatabase.getBytes(passphrase))
 

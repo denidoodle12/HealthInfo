@@ -15,7 +15,7 @@ class RemoteDataSource(private val apiService: ApiService) {
      * @param query Kata kunci pencarian. Jika kosong/blank, mengembalikan
      *              top health headlines tanpa filter (parameter q tidak dikirim ke API).
      */
-    suspend fun getAllHeadlines(query: String = ""): Flow<ApiResponse<List<HeadlinesResponse>>> {
+    fun getAllHeadlines(query: String = ""): Flow<ApiResponse<List<HeadlinesResponse>>> {
         return flow {
             try {
                 val response = apiService.getListHeadlines(

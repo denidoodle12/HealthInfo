@@ -146,7 +146,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="About App"
+                            android:text="@string/about_section_title_app"
                             android:textAppearance="?attr/textAppearanceTitleMedium"
                             android:textStyle="bold"
                             android:textColor="?attr/colorOnSurface" />
@@ -182,7 +182,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Tech Stack"
+                            android:text="@string/about_section_title_tech"
                             android:textAppearance="?attr/textAppearanceTitleMedium"
                             android:textStyle="bold"
                             android:textColor="?attr/colorOnSurface" />
@@ -191,10 +191,10 @@
                         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                             android:orientation="horizontal" android:layout_marginTop="12dp" android:gravity="center_vertical">
                             <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
-                                android:text="Architecture" android:textAppearance="?attr/textAppearanceBodySmall"
+                                android:text="@string/about_tech_label_architecture" android:textAppearance="?attr/textAppearanceBodySmall"
                                 android:textColor="?attr/colorOnSurfaceVariant"/>
                             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                android:text="Clean Architecture" android:textAppearance="?attr/textAppearanceLabelMedium"
+                                android:text="@string/about_tech_value_architecture" android:textAppearance="?attr/textAppearanceLabelMedium"
                                 android:textColor="?attr/colorPrimary" android:textStyle="bold"/>
                         </LinearLayout>
 
@@ -204,10 +204,10 @@
                         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                             android:orientation="horizontal" android:gravity="center_vertical">
                             <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
-                                android:text="Language" android:textAppearance="?attr/textAppearanceBodySmall"
+                                android:text="@string/about_tech_label_language" android:textAppearance="?attr/textAppearanceBodySmall"
                                 android:textColor="?attr/colorOnSurfaceVariant"/>
                             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                android:text="Kotlin" android:textAppearance="?attr/textAppearanceLabelMedium"
+                                android:text="@string/about_tech_value_language" android:textAppearance="?attr/textAppearanceLabelMedium"
                                 android:textColor="?attr/colorPrimary" android:textStyle="bold"/>
                         </LinearLayout>
 
@@ -217,10 +217,10 @@
                         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                             android:orientation="horizontal" android:gravity="center_vertical">
                             <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
-                                android:text="DI Framework" android:textAppearance="?attr/textAppearanceBodySmall"
+                                android:text="@string/about_tech_label_di" android:textAppearance="?attr/textAppearanceBodySmall"
                                 android:textColor="?attr/colorOnSurfaceVariant"/>
                             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                android:text="Koin" android:textAppearance="?attr/textAppearanceLabelMedium"
+                                android:text="@string/about_tech_value_di" android:textAppearance="?attr/textAppearanceLabelMedium"
                                 android:textColor="?attr/colorPrimary" android:textStyle="bold"/>
                         </LinearLayout>
 
@@ -230,10 +230,10 @@
                         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                             android:orientation="horizontal" android:gravity="center_vertical">
                             <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
-                                android:text="Data Source" android:textAppearance="?attr/textAppearanceBodySmall"
+                                android:text="@string/about_tech_label_datasource" android:textAppearance="?attr/textAppearanceBodySmall"
                                 android:textColor="?attr/colorOnSurfaceVariant"/>
                             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                android:text="NewsAPI.org" android:textAppearance="?attr/textAppearanceLabelMedium"
+                                android:text="@string/about_tech_value_datasource" android:textAppearance="?attr/textAppearanceLabelMedium"
                                 android:textColor="?attr/colorPrimary" android:textStyle="bold"/>
                         </LinearLayout>
 
@@ -243,10 +243,10 @@
                         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                             android:orientation="horizontal" android:gravity="center_vertical">
                             <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
-                                android:text="Security" android:textAppearance="?attr/textAppearanceBodySmall"
+                                android:text="@string/about_tech_label_security" android:textAppearance="?attr/textAppearanceBodySmall"
                                 android:textColor="?attr/colorOnSurfaceVariant"/>
                             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                android:text="SQLCipher + Cert. Pinning" android:textAppearance="?attr/textAppearanceLabelMedium"
+                                android:text="@string/about_tech_value_security" android:textAppearance="?attr/textAppearanceLabelMedium"
                                 android:textColor="?attr/colorPrimary" android:textStyle="bold"/>
                         </LinearLayout>
 

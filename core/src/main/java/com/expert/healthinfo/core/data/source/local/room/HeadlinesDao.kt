@@ -5,15 +5,11 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Update
 import com.expert.healthinfo.core.data.source.local.entity.HeadlinesEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface HeadlinesDao {
-
-    @Query("SELECT * FROM headlines")
-    fun getAllHeadlines(): Flow<List<HeadlinesEntity>>
 
     @Query("SELECT * FROM headlines WHERE isFavorite = 1")
     fun getFavoriteHeadlines(): Flow<List<HeadlinesEntity>>

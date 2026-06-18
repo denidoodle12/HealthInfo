@@ -82,7 +82,6 @@ class MainActivity : AppCompatActivity() {
                         binding.viewError.visibility = View.GONE
 
                         if (result.data.isNullOrEmpty()) {
-                            // Tidak ada hasil — tampilkan empty state dengan pesan kontekstual
                             binding.swipeRefresh.visibility = View.GONE
                             binding.viewEmpty.visibility = View.VISIBLE
                             updateEmptyStateMessage()
@@ -112,7 +111,6 @@ class MainActivity : AppCompatActivity() {
     private fun setupSearch() {
         binding.searchViewItem.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                // Sembunyikan keyboard setelah submit
                 binding.searchViewItem.clearFocus()
                 return true
             }
@@ -164,11 +162,11 @@ class MainActivity : AppCompatActivity() {
 
             splitInstallManager.startInstall(request)
                 .addOnSuccessListener {
-                    Toast.makeText(this, "Success installing module", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, R.string.module_install_success, Toast.LENGTH_SHORT).show()
                     toFavorite()
                 }
                 .addOnFailureListener {
-                    Toast.makeText(this, "Error installing module", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, R.string.module_install_failed, Toast.LENGTH_SHORT).show()
                 }
         }
     }
@@ -179,7 +177,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, Class.forName("com.expert.healthinfo.favorite.FavoriteActivity")))
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         } catch (e: Exception) {
-            Toast.makeText(this, "Module not found", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.module_not_found, Toast.LENGTH_SHORT).show()
         }
     }
 

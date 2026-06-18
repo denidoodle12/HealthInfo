@@ -10,5 +10,5 @@
     <string name="hello">Hello, Welcome to</string>
     <string name="user">HealthInfo</string>
     <string name="txtheadingappbar">find your related headlines here</string>
-    <string name="searchItem">Search Headlines...</string>
+    <string name="searchItem">Search Headlines&#8230;</string>
 </resources>

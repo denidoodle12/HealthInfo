@@ -6,8 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 class LocalDataSource(private val headlinesDao: HeadlinesDao) {
 
-    fun getAllHeadlines(): Flow<List<HeadlinesEntity>> = headlinesDao.getAllHeadlines()
-
     fun isHeadlineFavorite(idHeadlines: String): Flow<Boolean> {
         return headlinesDao.isHeadlineFavorite(idHeadlines)
     }

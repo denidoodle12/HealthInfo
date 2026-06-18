@@ -8,60 +8,50 @@ import kotlinx.coroutines.flow.flowOf
 import java.util.UUID
 
 object DataMapper {
+
+    /**
+     * Maps a list of [HeadlinesResponse] (from API) to a [Flow] of domain [Headlines] list.
+     */
     fun mapResponsesToDomain(input: List<HeadlinesResponse>): Flow<List<Headlines>> {
-        val data = ArrayList<Headlines>()
-        input.map {
-            val headlines = Headlines(
-                idHeadlines = it.url ?: UUID.randomUUID().toString(),
-                author = it.author,
-                urlToImage = it.urlToImage,
-                description = it.description,
-                title = it.title,
-                isFavorite = false
-            )
-            data.add(headlines)
-        }
-        return flowOf(data)
+        return flowOf(
+            input.map { response ->
+                Headlines(
+                    idHeadlines = response.url ?: UUID.randomUUID().toString(),
+                    author = response.author,
+                    urlToImage = response.urlToImage,
+                    description = response.description,
+                    title = response.title,
+                    isFavorite = false
+                )
+            }
+        )
     }
 
-    fun mapResponsesToEntities(input: List<HeadlinesResponse>): List<HeadlinesEntity> {
-        val headlinesList = ArrayList<HeadlinesEntity>()
-        input.map {
-            val headlines = HeadlinesEntity(
-                idHeadlines = it.url ?: UUID.randomUUID().toString(),
-                author = it.author,
-                urlToImage = it.urlToImage,
-                description = it.description,
-                title = it.title,
-                isFavorite = false
-            )
-            headlinesList.add(headlines)
-        }
-        return headlinesList
-    }
-
+    /**
+     * Maps a list of [HeadlinesEntity] (from Room) to a list of domain [Headlines].
+     */
     fun mapEntitiesToDomain(input: List<HeadlinesEntity>): List<Headlines> {
-        val headlinesList = ArrayList<Headlines>()
-        input.map {
-            val headlines = Headlines(
-                it.idHeadlines,
-                it.author,
-                it.urlToImage,
-                it.description,
-                it.title,
-                it.isFavorite
+        return input.map { entity ->
+            Headlines(
+                idHeadlines = entity.idHeadlines,
+                author = entity.author,
+                urlToImage = entity.urlToImage,
+                description = entity.description,
+                title = entity.title,
+                isFavorite = entity.isFavorite
             )
-            headlinesList.add(headlines)
         }
-        return headlinesList
     }
 
+    /**
+     * Maps a single domain [Headlines] to a [HeadlinesEntity] for persistence.
+     */
     fun mapDomainToEntity(input: Headlines) = HeadlinesEntity(
-        input.idHeadlines ?: UUID.randomUUID().toString(),
-        input.author,
-        input.urlToImage,
-        input.description,
-        input.title,
-        input.isFavorite
+        idHeadlines = input.idHeadlines ?: UUID.randomUUID().toString(),
+        author = input.author,
+        urlToImage = input.urlToImage,
+        description = input.description,
+        title = input.title,
+        isFavorite = input.isFavorite
     )
 }

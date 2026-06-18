@@ -1,19 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<font-family xmlns:android="http://schemas.android.com/apk/res/android">
+<!--
+    Font family definition menggunakan dual namespace (android: + app:) untuk backward compatibility.
+    - android:* → diterapkan pada API 26+
+    - app:*     → diterapkan oleh AndroidX AppCompat pada API 24-25
+-->
+<font-family xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <font
+        android:font="@font/poppins_regular"
         android:fontStyle="normal"
         android:fontWeight="400"
-        android:font="@font/poppins_regular" />
+        app:font="@font/poppins_regular"
+        app:fontStyle="normal"
+        app:fontWeight="400" />
     <font
+        android:font="@font/poppins_medium"
         android:fontStyle="normal"
         android:fontWeight="500"
-        android:font="@font/poppins_medium" />
+        app:font="@font/poppins_medium"
+        app:fontStyle="normal"
+        app:fontWeight="500" />
     <font
+        android:font="@font/poppins_semibold"
         android:fontStyle="normal"
         android:fontWeight="600"
-        android:font="@font/poppins_semibold" />
+        app:font="@font/poppins_semibold"
+        app:fontStyle="normal"
+        app:fontWeight="600" />
     <font
+        android:font="@font/poppins_bold"
         android:fontStyle="normal"
         android:fontWeight="700"
-        android:font="@font/poppins_bold" />
+        app:font="@font/poppins_bold"
+        app:fontStyle="normal"
+        app:fontWeight="700" />
 </font-family>
