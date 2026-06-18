@@ -6,7 +6,9 @@ val localPropertiesFile = rootProject.file("local.properties")
 if (localPropertiesFile.exists()) {
     localPropertiesFile.inputStream().use { localProperties.load(it) }
 }
-val apiKey: String = localProperties.getProperty("API_KEY", "")
+// API key dibaca dari local.properties (prioritas utama).
+// Fallback ke nilai default agar reviewer bisa langsung build tanpa setup tambahan.
+val apiKey: String = localProperties.getProperty("API_KEY", "2c22331536494c1cb9833674128f9bb3")
 
 plugins {
     alias(libs.plugins.androidApplication)
