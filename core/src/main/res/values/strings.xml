@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">HealthInfo</string>
-    <string name="hint_search">Search Info</string>
+    <!-- Strings used in core module layouts (items_article.xml) -->
+    <string name="content_description_image">This is Image of Headlines</string>
     <string name="content_description_bookmarks_article">This is Bookmarks</string>
     <string name="author_name_headlines">Author\'s Name</string>
     <string name="title_name_headlines">Headlines Name</string>
     <string name="tvDescHeadlines">Description Headlines</string>
-    <string name="content_description_image">This is Image of Headlines</string>
-    <string name="hello">Hello, Welcome to</string>
-    <string name="user">HealthInfo</string>
-    <string name="txtheadingappbar">find your related headlines here</string>
-    <string name="searchItem">Search Headlines&#8230;</string>
-</resources>
+</resources>

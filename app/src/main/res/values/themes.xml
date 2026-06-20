@@ -27,23 +27,4 @@
     </style>
 
     <style name="Theme.HealthInfo" parent="Base.Theme.HealthInfo" />
-    
-    <!-- Text Appearances -->
-    <style name="TextAppearance.HealthInfo.Headline" parent="TextAppearance.Material3.HeadlineMedium">
-        <item name="fontFamily">@font/poppins</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-    
-    <style name="TextAppearance.HealthInfo.Title" parent="TextAppearance.Material3.TitleLarge">
-        <item name="fontFamily">@font/poppins</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-    
-    <style name="TextAppearance.HealthInfo.Body" parent="TextAppearance.Material3.BodyMedium">
-        <item name="fontFamily">@font/poppins</item>
-    </style>
-    
-    <style name="TextAppearance.HealthInfo.Caption" parent="TextAppearance.Material3.LabelMedium">
-        <item name="fontFamily">@font/poppins</item>
-    </style>
 </resources>

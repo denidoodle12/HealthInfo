@@ -1,37 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Primary Teal 700 / Teal 300 -->
-    <color name="colorPrimary">#00796B</color>
-    <color name="colorOnPrimary">#FFFFFF</color>
-    <color name="colorPrimaryContainer">#B2DFDB</color>
-    <color name="colorOnPrimaryContainer">#00201E</color>
-    
-    <!-- Secondary Teal 600 / Teal 200 -->
-    <color name="colorSecondary">#00897B</color>
-    <color name="colorOnSecondary">#FFFFFF</color>
-    
-    <!-- Tertiary Amber 800 / Orange 300 -->
-    <color name="colorTertiary">#FF8F00</color>
-    <color name="colorOnTertiary">#FFFFFF</color>
-    <color name="colorTertiaryContainer">#FFECB3</color>
-    
-    <!-- Surface & Background -->
-    <color name="colorSurface">#FFFFFF</color>
-    <color name="colorBackground">#F5FAF9</color>
-    <color name="colorOnSurface">#1A1C1B</color>
-    <color name="colorSurfaceVariant">#DAE5E3</color>
-    <color name="colorOutline">#00000000</color>
-    
-    <!-- Error -->
-    <color name="colorError">#BA1A1A</color>
-    <color name="colorOnError">#FFFFFF</color>
-    
-    <!-- Utilities -->
-    <color name="black">#FF000000</color>
+    <!-- Colors used in core module layouts -->
     <color name="white">#FFFFFFFF</color>
-    <color name="text_primary">#212121</color>
-    <color name="text_secondary">#757575</color>
-    <color name="divider">#BDBDBD</color>
-    <color name="shimmer">#E0E0E0</color>
-    <color name="transparent">#00000000</color>
 </resources>
