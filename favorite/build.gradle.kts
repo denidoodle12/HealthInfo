@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidDynamicFeature)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlinParcelize)
 }
 
 android {

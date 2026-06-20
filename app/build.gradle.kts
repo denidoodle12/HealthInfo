@@ -1,21 +1,18 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.util.Properties
+
+plugins {
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlinParcelize)
+}
 
 val localProperties = Properties()
 val localPropertiesFile = rootProject.file("local.properties")
 if (localPropertiesFile.exists()) {
     localPropertiesFile.inputStream().use { localProperties.load(it) }
 }
-// API key dibaca dari local.properties (prioritas utama).
-// Fallback ke nilai default agar reviewer bisa langsung build tanpa setup tambahan.
 val apiKey: String = localProperties.getProperty("API_KEY", "2c22331536494c1cb9833674128f9bb3")
-
-plugins {
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.kotlinAndroid)
-    alias(libs.plugins.ksp)
-    id("kotlin-parcelize")
-}
 
 android {
     namespace = "com.expert.healthinfo"

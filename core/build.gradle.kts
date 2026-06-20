@@ -1,19 +1,18 @@
 import java.util.Properties
 
+plugins {
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlinParcelize)
+}
+
 val localProperties = Properties()
 val localPropertiesFile = rootProject.file("local.properties")
 if (localPropertiesFile.exists()) {
     localPropertiesFile.inputStream().use { localProperties.load(it) }
 }
-val apiKey: String = localProperties.getProperty("API_KEY", "")
-
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
-plugins {
-    alias(libs.plugins.androidLibrary)
-    alias(libs.plugins.kotlinAndroid)
-    alias(libs.plugins.ksp)
-    id("kotlin-parcelize")
-}
+val apiKey: String = localProperties.getProperty("API_KEY", "2c22331536494c1cb9833674128f9bb3")
 
 android {
     namespace = "com.expert.healthinfo.core"
