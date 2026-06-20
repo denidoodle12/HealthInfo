@@ -24,7 +24,5 @@
     <color name="colorError">#BA1A1A</color>
     <color name="colorOnError">#FFFFFF</color>
 
-    <!-- Utilities -->
-    <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

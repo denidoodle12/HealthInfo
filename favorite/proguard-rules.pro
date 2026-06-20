@@ -3,12 +3,19 @@
 # These rules ensure classes needed at runtime survive obfuscation.
 
 # ========================
+# Keep all classes in this module
+# ========================
+-keep class com.expert.healthinfo.favorite.** { *; }
+-keepnames class com.expert.healthinfo.favorite.**
+
+# ========================
 # Koin — Dependency Injection
 # ========================
 -keep class org.koin.** { *; }
+-keepnames class org.koin.**
 -dontwarn org.koin.**
 
 # ========================
-# Keep FavoriteActivity (referenced via reflection from base app)
+# ViewModels — kept for Koin viewModel injection
 # ========================
--keep class com.expert.healthinfo.favorite.FavoriteActivity { *; }
+-keep class * extends androidx.lifecycle.ViewModel { *; }

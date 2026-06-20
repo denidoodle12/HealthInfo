@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">HealthInfo</string>
-    <string name="hint_search">Search Info</string>
     <string name="content_description_bookmarks_article">This is Bookmarks</string>
     <string name="author_name_headlines">Author\'s Name</string>
     <string name="title_name_headlines">Headlines Name</string>
@@ -15,7 +14,6 @@
     <string name="detail_author">Author Name</string>
     <string name="detail_title">Title</string>
     <string name="detail_description">this is description</string>
-    <string name="seeMore">See More</string>
     <!-- Error State -->
     <string name="error_failed_load">Failed to load data.\nPlease check your internet connection.</string>
     <string name="retry">Try Again</string>

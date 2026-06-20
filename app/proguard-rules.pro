@@ -10,11 +10,18 @@
 -renamesourcefileattribute SourceFile
 
 # ========================
+# ViewBinding — prevent R8 from stripping ViewBinding classes
+# ========================
+-keep class androidx.viewbinding.** { *; }
+-keep interface androidx.viewbinding.** { *; }
+
+# ========================
 # Kotlin
 # ========================
 -keep class kotlin.** { *; }
 -keep class kotlin.Metadata { *; }
 -dontwarn kotlin.**
+-dontwarn java.lang.invoke.StringConcatFactory
 -keepclassmembers class **$WhenMappings {
     <fields>;
 }
@@ -98,3 +105,20 @@
 # ========================
 -keep class androidx.security.crypto.** { *; }
 -dontwarn androidx.security.crypto.**
+
+# ========================
+# Dynamic Feature Module: favorite
+# FavoriteActivity loaded via Class.forName() — must be kept
+# ========================
+-keep class com.expert.healthinfo.favorite.** { *; }
+-keepnames class com.expert.healthinfo.favorite.**
+
+# ========================
+# Core classes used at runtime — must NOT be dontwarn-only
+# ========================
+-keep class com.expert.healthinfo.core.** { *; }
+-keep class com.expert.healthinfo.core.ui.HealthAdapter { *; }
+-keep class com.expert.healthinfo.core.domain.model.** { *; }
+-keep class com.expert.healthinfo.core.domain.usecase.** { *; }
+-keep class com.expert.healthinfo.core.domain.repository.** { *; }
+-keep class com.expert.healthinfo.core.data.** { *; }

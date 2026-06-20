@@ -83,6 +83,9 @@ class FavoriteActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
+        // Detach adapter from RecyclerView sebelum nulling binding
+        // untuk memutus reference chain: RecyclerView → Adapter → lambda → Activity context
+        binding.rvFavorite.adapter = null
         super.onDestroy()
         _binding = null
     }

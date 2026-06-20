@@ -188,6 +188,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
+        // Detach adapter dari RecyclerView untuk memutus reference chain ke Activity context
+        binding.rvHealth.adapter = null
         super.onDestroy()
         _binding = null
     }

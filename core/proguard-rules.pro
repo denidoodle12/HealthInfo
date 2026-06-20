@@ -3,6 +3,12 @@
 # This file applies only to the :core module itself during its own minification.
 
 # ========================
+# ViewBinding — prevent R8 from stripping ViewBinding classes
+# ========================
+-keep class androidx.viewbinding.** { *; }
+-keep interface androidx.viewbinding.** { *; }
+
+# ========================
 # Gson — keep response models
 # ========================
 -keep class com.expert.healthinfo.core.data.source.remote.response.** { *; }
@@ -69,6 +75,7 @@
 # ========================
 -keep class kotlin.Metadata { *; }
 -dontwarn kotlin.**
+-dontwarn java.lang.invoke.StringConcatFactory
 -keepclassmembers class **$WhenMappings {
     <fields>;
 }

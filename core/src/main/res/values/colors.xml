@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Colors used in core module layouts -->
+    <!-- Colors used in core module layouts and adapters -->
     <color name="white">#FFFFFFFF</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorTertiary">#FF8F00</color>
 </resources>

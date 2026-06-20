@@ -47,3 +47,5 @@
 # ========================
 -keep class androidx.security.crypto.** { *; }
 -dontwarn androidx.security.crypto.**
+
+-dontwarn java.lang.invoke.StringConcatFactory
