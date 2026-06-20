@@ -188,8 +188,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        // Detach adapter dari RecyclerView untuk memutus reference chain ke Activity context
-        binding.rvHealth.adapter = null
+        with(binding.rvHealth) {
+            // Urutan penting: stop animations → release views → stop layout
+            (adapter as? HealthAdapter)?.onItemClick = null
+            itemAnimator = null
+            adapter = null
+            layoutManager = null
+            recycledViewPool.clear()
+        }
+        binding.searchViewItem.setOnQueryTextListener(null)
+        binding.swipeRefresh.setOnRefreshListener(null)
         super.onDestroy()
         _binding = null
     }

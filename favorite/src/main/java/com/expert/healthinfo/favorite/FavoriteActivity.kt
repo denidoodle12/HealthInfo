@@ -83,9 +83,15 @@ class FavoriteActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        // Detach adapter from RecyclerView sebelum nulling binding
-        // untuk memutus reference chain: RecyclerView → Adapter → lambda → Activity context
-        binding.rvFavorite.adapter = null
+        with(binding.rvFavorite) {
+            // Urutan penting: stop animations → release views → stop layout
+            // Ini memutus semua pending Choreographer callbacks yang hold View reference
+            (adapter as? com.expert.healthinfo.core.ui.HealthAdapter)?.onItemClick = null
+            itemAnimator = null
+            adapter = null
+            layoutManager = null
+            recycledViewPool.clear()
+        }
         super.onDestroy()
         _binding = null
     }

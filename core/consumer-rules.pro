@@ -48,4 +48,29 @@
 -keep class androidx.security.crypto.** { *; }
 -dontwarn androidx.security.crypto.**
 
+# ========================
+# Core classes referenced by app module (fix Missing classes R8 error)
+# ========================
+# Result sealed class + subclasses
+-keep class com.expert.healthinfo.core.data.Result { *; }
+-keep class com.expert.healthinfo.core.data.Result$* { *; }
+
+# Koin DI module (accessed by name at runtime)
+-keep class com.expert.healthinfo.core.di.CoreModuleKt { *; }
+-keep class com.expert.healthinfo.core.di.** { *; }
+
+# Domain layer
+-keep interface com.expert.healthinfo.core.domain.repository.** { *; }
+-keep class com.expert.healthinfo.core.domain.usecase.** { *; }
+
+# UI adapter
+-keep class com.expert.healthinfo.core.ui.HealthAdapter { *; }
+-keep class com.expert.healthinfo.core.ui.** { *; }
+
+# ========================
+# ViewBinding
+# ========================
+-keep class androidx.viewbinding.** { *; }
+-keep interface androidx.viewbinding.** { *; }
+
 -dontwarn java.lang.invoke.StringConcatFactory
